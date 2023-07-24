@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo_bloc_app/models/task.dart';
+import 'package:todo_bloc_app/screens/tasks_screen.dart';
+import 'blocs/bloc_exports.dart';
 
 void main() {
+  // BlocOverrides.runZoned() used here
   runApp(const MyApp());
 }
 
@@ -9,25 +13,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Todo App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(),
-    );
-  }
-}
+    return BlocProvider(
+      create: (context) => TaskBloc()
+        ..add(const AddTask(
+            task: Task(
+          title: 'Task 1',
+        ))),
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Todo Appbar")),
-      ),
-      body: const Center(
-        child: Text("Body Text"),
+      child: MaterialApp(
+        title: 'Todo App',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: TasksScreen(),
       ),
     );
   }
