@@ -14,11 +14,17 @@ class TaskList extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         itemCount: taskList.length,
-        itemBuilder: (context, index) => ListTile(
-          title: Text(taskList[index].title),
-          trailing: Checkbox(
-            value: taskList[index].isDone,
-            onChanged: (value) {},
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(taskList[index].name),
+              Text(taskList[index].email),
+              Text(taskList[index].title),
+              Text(taskList[index].message),
+              Text(taskList[index].dateTime.toString()),
+            ],
           ),
         ),
       ),

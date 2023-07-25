@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
 import '../widgets/task_list.dart';
+import 'add_task_screen.dart';
 
 class TasksScreen extends StatelessWidget {
-  TasksScreen({super.key});
-  final TextEditingController titleController = TextEditingController();
+  const TasksScreen({super.key});
 
   void _addTask(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      builder: (context) => SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: AddTaskScreen(titleController: titleController),
-        ),
+      builder: (context) => const Center(
+        child: AddTaskScreen()
       ),
     );
   }
@@ -58,35 +53,4 @@ class TasksScreen extends StatelessWidget {
   }
 }
 
-class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({
-    super.key,
-    required this.titleController,
-  });
 
-  final TextEditingController titleController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          const Text(
-            'Add Task',
-            style: TextStyle(fontSize: 24),
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            autofocus: true,
-            controller: titleController,
-            decoration: const InputDecoration(
-              label: Text('Title'),
-              border: OutlineInputBorder()
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}

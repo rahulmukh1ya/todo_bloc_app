@@ -1,40 +1,56 @@
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable {
+  final String name;
+  final String email;
   final String title;
-  final bool isDone;
-  final bool isDeleted;
+  final String message;
+  final DateTime dateTime;
 
   const Task({
+    required this.name,
+    required this.email,
     required this.title,
-    this.isDone = false,
-    this.isDeleted = false,
+    required this.message,
+    required this.dateTime,
   });
 
-  Task copyWith({String? title, bool? isDone, bool? isDeleted}) {
+  Task copyWith({
+    String? name,
+    String? email,
+    String? title,
+    String? message,
+    DateTime? dateTime,
+  }) {
     return Task(
+      name: name ?? this.name,
+      email: email ?? this.email,
       title: title ?? this.title,
-      isDone: isDone ?? this.isDone,
-      isDeleted: isDeleted ?? this.isDeleted,
+      message: message ?? this.message,
+      dateTime: dateTime ?? this.dateTime,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'name' : name,
+      'email' : email,
       'title': title,
-      'isDone': isDone,
-      'isDeleted': isDeleted,
+      'message' : message,
+      'dateTime' : dateTime,
     };
   }
 
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
-      title: map['title'] ?? '',
-      isDone: map['isDone'] ?? false,
-      isDeleted: map['isDeleted'] ?? false,
+      name: map['name'],
+      email: map['email'],
+      title: map['title'],
+      message: map['message'],
+      dateTime: map['dateTime']
     );
   }
 
   @override
-  List<Object?> get props => [title, isDone, isDeleted];
+  List<Object?> get props => [name, email, title, message, dateTime];
 }
