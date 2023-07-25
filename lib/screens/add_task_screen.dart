@@ -14,7 +14,7 @@ class AddTaskScreen extends StatelessWidget {
     final TextEditingController titleController = TextEditingController();
     final TextEditingController messageController = TextEditingController();
     final TextEditingController dateTimeController = TextEditingController();
-    final DateTime dateTime = DateTime.now();
+    DateTime dateTime = DateTime.now();
 
     return AlertDialog(
       scrollable: true,
@@ -68,13 +68,14 @@ class AddTaskScreen extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
               onTap: () async {
-                DateTime? dateTime = await showDatePicker(
+                final DateTime? pickedDateTime = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
+                    firstDate: DateTime(2020),
                     lastDate: DateTime(2025));
-                if (dateTime != null) {
-                  dateTimeController.text = dateTime.toString();
+                if (pickedDateTime != null) {
+                  dateTimeController.text = pickedDateTime.toString();
+                  dateTime = pickedDateTime;
                 }
               },
             ),
@@ -93,7 +94,7 @@ class AddTaskScreen extends StatelessWidget {
                       email: emailController.text,
                       title: titleController.text,
                       message: messageController.text,
-                      dateTime: dateTime,
+                      dateTime: dateTime
                     );
                     context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);

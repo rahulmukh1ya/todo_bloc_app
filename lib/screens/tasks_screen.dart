@@ -23,13 +23,7 @@ class TasksScreen extends StatelessWidget {
         List<Task> taskList = state.allTasks;
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Tasks App"),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-              ),
-            ],
+            title: const Text("Todo App"),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -15,15 +15,45 @@ class TaskList extends StatelessWidget {
       child: ListView.builder(
         itemCount: taskList.length,
         itemBuilder: (context, index) => Container(
+          height: 110,
+          width: 200,
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.blueAccent)),
           padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(taskList[index].name),
-              Text(taskList[index].email),
-              Text(taskList[index].title),
-              Text(taskList[index].message),
-              Text(taskList[index].dateTime.toString()),
+              Row(
+                children: [
+                  const Text("Name: "),
+                  Text(taskList[index].name),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Email: "),
+                  Text(taskList[index].email),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Title: "),
+                  Text(taskList[index].title),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Message: "),
+                  Text(taskList[index].message),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Date Time: "),
+                  Text(taskList[index].dateTime.toString()),
+                ],
+              ),
             ],
           ),
         ),
