@@ -13,8 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TaskBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TaskBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FormBloc(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Todo App',
         theme: ThemeData(primarySwatch: Colors.blue),

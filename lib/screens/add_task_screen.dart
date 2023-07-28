@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
-import '../models/task.dart';
+// import '../blocs/form_bloc/bloc/form_bloc_state.dart';
+import '../blocs/form_bloc/bloc/form_bloc_state.dart';
+// import '../models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({
@@ -9,14 +13,48 @@ class AddTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController titleController = TextEditingController();
-    final TextEditingController messageController = TextEditingController();
-    final TextEditingController dateTimeController = TextEditingController();
-    DateTime dateTime = DateTime.now();
+    // final TextEditingController nameController = TextEditingController();
+    // final TextEditingController emailController = TextEditingController();
+    // final TextEditingController titleController = TextEditingController();
+    // final TextEditingController messageController = TextEditingController();
+    // final TextEditingController dateTimeController = TextEditingController();
+    // DateTime dateTime = DateTime.now();
 
     return AlertDialog(
+        scrollable: true,
+        content: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 435,
+          padding: const EdgeInsets.all(0),
+          child: BlocBuilder<FormBloc, FormScreenState>(
+            builder: (context, state) {
+              return Form(
+                child: Column(children: [
+                  const Text(
+                    'Add Task',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 10),
+                  CustomFormField(
+                    hintText: 'Name',
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r"[a-zA-Z]+|\s"),
+                      )
+                    ],
+                  ),
+                ]),
+              );
+            },
+          ),
+        ));
+  }
+}
+
+
+/*
+
+return AlertDialog(
       scrollable: true,
       content: Container(
         width: MediaQuery.of(context).size.width,
@@ -107,5 +145,4 @@ class AddTaskScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
+ */
