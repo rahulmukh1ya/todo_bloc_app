@@ -7,23 +7,24 @@ class FormScreenState extends Equatable {
   final BlocFormItem email;
   final BlocFormItem title;
   final BlocFormItem message;
-  final BlocFormItem dateTime;
+  // final BlocFormItem dateTime;
   final GlobalKey<FormState>? formKey;
 
-  const FormScreenState(
-      {this.name = const BlocFormItem(error: 'Enter name'),
-      this.email = const BlocFormItem(error: 'Enter email'),
-      this.title = const BlocFormItem(error: 'Enter title'),
-      this.message = const BlocFormItem(error: 'Enter message'),
-      this.dateTime = const BlocFormItem(error: 'Enter date time'),
-      this.formKey});
+  const FormScreenState({
+    this.name = const BlocFormItem(error: 'Enter name'),
+    this.email = const BlocFormItem(error: 'Enter email'),
+    this.title = const BlocFormItem(error: 'Enter title'),
+    this.message = const BlocFormItem(error: 'Enter message'),
+    // this.dateTime = const BlocFormItem(error: 'Enter date time'),
+    this.formKey,
+  });
 
   FormScreenState copyWith({
     BlocFormItem? name,
     BlocFormItem? email,
     BlocFormItem? title,
     BlocFormItem? message,
-    BlocFormItem? dateTime,
+    // BlocFormItem? dateTime,
     GlobalKey<FormState>? formKey,
   }) {
     return FormScreenState(
@@ -31,10 +32,12 @@ class FormScreenState extends Equatable {
         email: email ?? this.email,
         title: title ?? this.title,
         message: message ?? this.message,
-        dateTime: dateTime ?? this.dateTime,
+        // dateTime: dateTime ?? this.dateTime,
         formKey: formKey);
   }
 
   @override
-  List<Object?> get props => [name, email, title, message, dateTime, formKey];
+  List<Object?> get props => [name, email, title, message];
+  // put dateTime later
+  //removed formKey
 }
