@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/utils/extensions.dart';
 
-
 part 'form_bloc_state.dart';
 part 'form_bloc_event.dart';
 // import '../../bloc_exports.dart';
@@ -26,7 +25,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
   Future<void> _initFormState(
       InitEvent event, Emitter<FormScreenState> emit) async {
     emit(state.copyWith(formKey: _formKey));
-  } 
+  }
 
   Future<void> _onNameChanged(
     NameChangedEvent event,
@@ -88,15 +87,14 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     );
   }
 
-
   Future<void> _onFormSubmitted(
     FormSubmitEvent event,
     Emitter<FormScreenState> emit,
   ) async {
-    if(_formKey.currentState!.validate()){
-        // add to the tasks 
+    if (state.formKey!.currentState!.validate()) {
+      print('Form is Valid');
+    } else {
+      print("Form not Valid");
     }
   }
-
-
 }

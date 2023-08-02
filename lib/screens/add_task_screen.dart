@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 // import 'package:todo_bloc_app/blocs/form_bloc/bloc/form_bloc_event.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
@@ -45,11 +45,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     const SizedBox(height: 10),
                     CustomFormField(
                       hintText: 'Name',
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"[a-zA-Z]+|\s"),
-                        )
-                      ],
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
                             NameChangedEvent(name: BlocFormItem(value: val!)));
@@ -63,7 +58,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       hintText: 'Email',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
-                            EmailChangedEvent(email: BlocFormItem(value: val!)));
+                            EmailChangedEvent(
+                                email: BlocFormItem(value: val!)));
                       },
                       validator: (val) {
                         return state.email.error;
@@ -74,7 +70,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       hintText: 'Title',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
-                            TitleChangedEvent(title: BlocFormItem(value: val!)));
+                            TitleChangedEvent(
+                                title: BlocFormItem(value: val!)));
                       },
                       validator: (val) {
                         return state.title.error;
@@ -110,9 +107,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             //   dateTime: dateTime
                             // );
                             // context.read<TaskBloc>().add(AddTask(task: task));
+
+                            BlocProvider.of<FormBloc>(context)
+                                .add(const FormSubmitEvent());
+
                             print(
                               '${state.name.value} and ${state.email.value} and ${state.title.value} and ${state.message.value}',
                             );
+
+                            // Navigator.pop(context);
+
                             Navigator.pop(context);
                           },
                           child: const Text('Add'),
