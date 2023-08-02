@@ -49,7 +49,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     emit(
       state.copyWith(
         formKey: _formKey,
-        name: BlocFormItem(
+        email: BlocFormItem(
           value: event.email.value,
           error: event.email.value.isValidEmail ? null : 'Enter email',
         ),
@@ -64,7 +64,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     emit(
       state.copyWith(
         formKey: _formKey,
-        name: BlocFormItem(
+        title: BlocFormItem(
           value: event.title.value,
           error: event.title.value.isValidTitle ? null : 'Enter title',
         ),
@@ -79,7 +79,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     emit(
       state.copyWith(
         formKey: _formKey,
-        name: BlocFormItem(
+        message: BlocFormItem(
           value: event.message.value,
           error: event.message.value.isValidMessage ? null : 'Enter message',
         ),
