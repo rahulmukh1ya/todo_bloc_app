@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
-import '../models/task.dart';
 // import '../blocs/form_bloc/bloc/form_bloc_state.dart';
 // import '../models/task.dart';
 
@@ -95,14 +94,14 @@ class AddTaskScreen extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            var task = Task (
-                              name: state.name.value,
-                              email: state.email.value,
-                              title: state.title.value,
-                              message: state.message.value,
-                              
-                            );
-                            context.read<TaskBloc>().add(AddTask(task: task));
+                            // var task = Task (
+                            //   name: state.name.value,
+                            //   email: state.email.value,
+                            //   title: state.title.value,
+                            //   message: state.message.value,
+                            //   dateTime: dateTime
+                            // );
+                            // context.read<TaskBloc>().add(AddTask(task: task));
 
                             BlocProvider.of<FormBloc>(context)
                                 .add(const FormSubmitEvent());
