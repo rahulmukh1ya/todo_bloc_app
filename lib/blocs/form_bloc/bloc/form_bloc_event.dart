@@ -1,12 +1,15 @@
-import 'package:equatable/equatable.dart';
-// import 'package:flutter/services.dart';
-import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
+// import 'package:equatable/equatable.dart';
+// // import 'package:flutter/services.dart';
+// import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
+
+
+part of 'form_bloc.dart';
 
 abstract class FormScreenEvent extends Equatable {
   const FormScreenEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class InitEvent extends FormScreenEvent {
@@ -19,7 +22,7 @@ class NameChangedEvent extends FormScreenEvent {
   final BlocFormItem name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 
 class EmailChangedEvent extends FormScreenEvent {
@@ -28,7 +31,7 @@ class EmailChangedEvent extends FormScreenEvent {
   final BlocFormItem email;
 
   @override
-  List<Object> get props => [email];
+  List<Object?> get props => [email];
 }
 
 class TitleChangedEvent extends FormScreenEvent {
@@ -37,7 +40,7 @@ class TitleChangedEvent extends FormScreenEvent {
   final BlocFormItem title;
 
   @override
-  List<Object> get props => [title];
+  List<Object?> get props => [title];
 }
 
 class MessageChangedEvent extends FormScreenEvent {
@@ -46,7 +49,7 @@ class MessageChangedEvent extends FormScreenEvent {
   final BlocFormItem message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 class DateTimeChangedEvent extends FormScreenEvent {
@@ -55,7 +58,7 @@ class DateTimeChangedEvent extends FormScreenEvent {
   final BlocFormItem dateTime;
 
   @override
-  List<Object> get props => [dateTime];
+  List<Object?> get props => [dateTime];
 }
 
 class FormSubmitEvent extends FormScreenEvent {

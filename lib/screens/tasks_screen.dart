@@ -7,7 +7,7 @@ import 'add_task_screen.dart';
 class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
 
-  void _addTask(BuildContext context) {
+  void addTask(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => const Center(
@@ -37,7 +37,7 @@ class TasksScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => _addTask(context),
+            onPressed: () => addTask(context),
             tooltip: 'Add Task',
             child: const Icon(Icons.add),
           ),

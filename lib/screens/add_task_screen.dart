@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todo_bloc_app/blocs/form_bloc/bloc/form_bloc_event.dart';
+// import 'package:todo_bloc_app/blocs/form_bloc/bloc/form_bloc_event.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
-import '../blocs/form_bloc/bloc/form_bloc_state.dart';
+// import '../blocs/form_bloc/bloc/form_bloc_state.dart';
 // import '../models/task.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({
     super.key,
   });
 
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     // final TextEditingController nameController = TextEditingController();
@@ -29,88 +34,93 @@ class AddTaskScreen extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           child: BlocBuilder<FormBloc, FormScreenState>(
             builder: (context, state) {
-              return Form(
-                key: state.formKey,
-                child: Column(children: [
-                  const Text(
-                    'Add Task',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(height: 10),
-                  CustomFormField(
-                    hintText: 'Name',
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(r"[a-zA-Z]+|\s"),
-                      )
-                    ],
-                    onChanged: (val) {
-                      BlocProvider.of<FormBloc>(context).add(
-                          NameChangedEvent(name: BlocFormItem(value: val!)));
-                    },
-                    validator: (val) {
-                      return state.name.error;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  CustomFormField(
-                    hintText: 'Email',
-                    onChanged: (val) {
-                      BlocProvider.of<FormBloc>(context).add(
-                          EmailChangedEvent(email: BlocFormItem(value: val!)));
-                    },
-                    validator: (val) {
-                      return state.email.error;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  CustomFormField(
-                    hintText: 'Title',
-                    onChanged: (val) {
-                      BlocProvider.of<FormBloc>(context).add(
-                          TitleChangedEvent(title: BlocFormItem(value: val!)));
-                    },
-                    validator: (val) {
-                      return state.title.error;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  CustomFormField(
-                    hintText: 'Message',
-                    onChanged: (val) {
-                      BlocProvider.of<FormBloc>(context).add(
-                          MessageChangedEvent(
-                              message: BlocFormItem(value: val!)));
-                    },
-                    validator: (val) {
-                      return state.message.error;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancel'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // var task = Task (
-                          //   name: state.name.value,
-                          //   email: state.email.value,
-                          //   title: state.title.value,
-                          //   message: state.message.value,
-                          //   dateTime: dateTime
-                          // );
-                          // context.read<TaskBloc>().add(AddTask(task: task));
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Add'),
-                      )
-                    ],
-                  )
-                ]),
+              return SingleChildScrollView(
+                child: Form(
+                  key: state.formKey,
+                  child: Column(children: [
+                    const Text(
+                      'Add Task',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomFormField(
+                      hintText: 'Name',
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r"[a-zA-Z]+|\s"),
+                        )
+                      ],
+                      onChanged: (val) {
+                        BlocProvider.of<FormBloc>(context).add(
+                            NameChangedEvent(name: BlocFormItem(value: val!)));
+                      },
+                      validator: (val) {
+                        return state.name.error;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomFormField(
+                      hintText: 'Email',
+                      onChanged: (val) {
+                        BlocProvider.of<FormBloc>(context).add(
+                            EmailChangedEvent(email: BlocFormItem(value: val!)));
+                      },
+                      validator: (val) {
+                        return state.email.error;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomFormField(
+                      hintText: 'Title',
+                      onChanged: (val) {
+                        BlocProvider.of<FormBloc>(context).add(
+                            TitleChangedEvent(title: BlocFormItem(value: val!)));
+                      },
+                      validator: (val) {
+                        return state.title.error;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomFormField(
+                      hintText: 'Message',
+                      onChanged: (val) {
+                        BlocProvider.of<FormBloc>(context).add(
+                            MessageChangedEvent(
+                                message: BlocFormItem(value: val!)));
+                      },
+                      validator: (val) {
+                        return state.message.error;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            // var task = Task (
+                            //   name: state.name.value,
+                            //   email: state.email.value,
+                            //   title: state.title.value,
+                            //   message: state.message.value,
+                            //   dateTime: dateTime
+                            // );
+                            // context.read<TaskBloc>().add(AddTask(task: task));
+                            print(
+                              '${state.name.value} and ${state.email.value} and ${state.title.value} and ${state.message.value}',
+                            );
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Add'),
+                        )
+                      ],
+                    )
+                  ]),
+                ),
               );
             },
           ),

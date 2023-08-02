@@ -27,6 +27,7 @@ class CustomFormField extends StatelessWidget {
           hintText: hintText,
         ),
         onChanged: onChanged,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }
