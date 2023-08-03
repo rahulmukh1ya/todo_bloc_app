@@ -5,15 +5,21 @@ class CustomFormField extends StatelessWidget {
   const CustomFormField({
     super.key,
     required this.hintText,
+    required this.labelText,
     this.inputFormatters,
     this.validator,
     this.onChanged,
+    this.onTap,
+    this.controller,
   });
 
   final String hintText;
+  final String labelText;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
+  final void Function()? onTap;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +31,12 @@ class CustomFormField extends StatelessWidget {
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           hintText: hintText,
+          labelText: labelText,
         ),
         onChanged: onChanged,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onTap: onTap,
+        controller: controller,
       ),
     );
   }

@@ -10,7 +10,7 @@ class TasksScreen extends StatelessWidget {
   void addTask(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => const Center(
+      builder: (context) => Center(
         child: AddTaskScreen()
       ),
     );

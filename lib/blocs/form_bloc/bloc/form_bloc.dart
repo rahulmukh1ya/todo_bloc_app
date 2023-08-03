@@ -17,6 +17,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     on<EmailChangedEvent>(_onEmailChanged);
     on<TitleChangedEvent>(_onTitleChanged);
     on<MessageChangedEvent>(_onMessageChanged);
+    on<DateTimeChangedEvent>(_onDateTimeChanged);
     on<FormSubmitEvent>(_onFormSubmitted);
   }
 
@@ -36,7 +37,9 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
         formKey: _formKey,
         name: BlocFormItem(
           value: event.name.value,
-          error: event.name.value.isValidName ? null : 'Enter name',
+          error: event.name.value.isValidName
+              ? null
+              : 'Incorrect name, ex: John Doe',
         ),
       ),
     );
@@ -51,7 +54,9 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
         formKey: _formKey,
         email: BlocFormItem(
           value: event.email.value,
-          error: event.email.value.isValidEmail ? null : 'Enter email',
+          error: event.email.value.isValidEmail
+              ? null
+              : 'Incorrect email, ex: JohnDoe@email.com',
         ),
       ),
     );
@@ -66,7 +71,7 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
         formKey: _formKey,
         title: BlocFormItem(
           value: event.title.value,
-          error: event.title.value.isValidTitle ? null : 'Enter title',
+          error: event.title.value.isValidTitle ? null : 'Incorrect Title',
         ),
       ),
     );
@@ -81,7 +86,25 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
         formKey: _formKey,
         message: BlocFormItem(
           value: event.message.value,
-          error: event.message.value.isValidMessage ? null : 'Enter message',
+          error:
+              event.message.value.isValidMessage ? null : 'Incorrect Message',
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onDateTimeChanged(
+    DateTimeChangedEvent event,
+    Emitter<FormScreenState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        formKey: _formKey,
+        dateTime: BlocFormItem(
+          value: event.dateTime.value,
+          error: event.dateTime.value.isNotEmpty
+              ? null
+              : 'Date Time cannot be empty',
         ),
       ),
     );
@@ -91,10 +114,10 @@ class FormBloc extends Bloc<FormScreenEvent, FormScreenState> {
     FormSubmitEvent event,
     Emitter<FormScreenState> emit,
   ) async {
-    if (state.formKey!.currentState!.validate()) {
-      print('Form is Valid');
-    } else {
-      print("Form not Valid");
-    }
+    // if (state.formKey!.currentState!.validate()) {
+    //   print('Form is Valid');
+    // } else {
+    //   print("Form not Valid");
+    // }
   }
 }

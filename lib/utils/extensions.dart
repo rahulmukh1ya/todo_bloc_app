@@ -21,5 +21,5 @@ extension StringExtension on String {
     return messageRegExp.hasMatch(this);
   }
 
-  // bool get isValidDateTime {}
+
 }

@@ -5,27 +5,22 @@ import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
 // import '../blocs/form_bloc/bloc/form_bloc_state.dart';
-// import '../models/task.dart';
+import '../models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({
+  AddTaskScreen({
     super.key,
   });
 
+  final TextEditingController dateTimeController = TextEditingController();
+  // DateTime dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    // final TextEditingController nameController = TextEditingController();
-    // final TextEditingController emailController = TextEditingController();
-    // final TextEditingController titleController = TextEditingController();
-    // final TextEditingController messageController = TextEditingController();
-    // final TextEditingController dateTimeController = TextEditingController();
-    // DateTime dateTime = DateTime.now();
-
     return AlertDialog(
         scrollable: true,
         content: Container(
           width: MediaQuery.of(context).size.width,
-          height: 435,
           padding: const EdgeInsets.all(0),
           child: BlocBuilder<FormBloc, FormScreenState>(
             builder: (context, state) {
@@ -39,7 +34,8 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CustomFormField(
-                      hintText: 'Name',
+                      labelText: 'Name',
+                      hintText: 'Enter your name',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
                             NameChangedEvent(name: BlocFormItem(value: val!)));
@@ -50,7 +46,8 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CustomFormField(
-                      hintText: 'Email',
+                      labelText: 'Email',
+                      hintText: 'Enter your email',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
                             EmailChangedEvent(
@@ -62,7 +59,8 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CustomFormField(
-                      hintText: 'Title',
+                      labelText: 'Title',
+                      hintText: 'Enter your title',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
                             TitleChangedEvent(
@@ -74,11 +72,44 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CustomFormField(
-                      hintText: 'Message',
+                      labelText: 'Message',
+                      hintText: 'Enter your message',
                       onChanged: (val) {
                         BlocProvider.of<FormBloc>(context).add(
                             MessageChangedEvent(
                                 message: BlocFormItem(value: val!)));
+                      },
+                      validator: (val) {
+                        return state.message.error;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomFormField(
+                      labelText: 'Date Time',
+                      hintText: 'Select the date time',
+                      // onChanged: (val) {
+                      //   BlocProvider.of<FormBloc>(context).add(
+                      //       DateTimeChangedEvent(
+                      //           dateTime:
+                      //               BlocFormItem(value: val!.toString())));
+                      // },
+                      controller: dateTimeController,
+                      onTap: () async {
+                        final DateTime? pickedDateTime = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime(2025));
+                        if (pickedDateTime != null && context.mounted) {
+                          // dateTimeController.text = pickedDateTime.toString();
+                          dateTimeController.text =
+                              '${pickedDateTime.year}-${pickedDateTime.month}-${pickedDateTime.day}';
+
+                          BlocProvider.of<FormBloc>(context).add(
+                              DateTimeChangedEvent(
+                                  dateTime: BlocFormItem(
+                                      value: pickedDateTime.toString())));
+                        }
                       },
                       validator: (val) {
                         return state.message.error;
@@ -94,19 +125,32 @@ class AddTaskScreen extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // var task = Task (
-                            //   name: state.name.value,
-                            //   email: state.email.value,
-                            //   title: state.title.value,
-                            //   message: state.message.value,
-                            //   dateTime: dateTime
-                            // );
-                            // context.read<TaskBloc>().add(AddTask(task: task));
+                            print(state.dateTime.value);
 
+                            if (state.formKey!.currentState!.validate()) {
+                              print('yo this form is valid');
+
+                              var task = Task(
+                                name: state.name.value,
+                                email: state.email.value,
+                                title: state.title.value,
+                                message: state.message.value,
+                                dateTime: DateTime.parse(state.dateTime.value),
+                              );
+                              context.read<TaskBloc>().add(AddTask(task: task));
+                            }
                             BlocProvider.of<FormBloc>(context)
                                 .add(const FormSubmitEvent());
 
-                            // Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Task added Successfully'),
+                                backgroundColor: Colors.green,
+                              ),
+                              
+                            );
+
+                            Navigator.pop(context);
                           },
                           child: const Text('Add'),
                         )

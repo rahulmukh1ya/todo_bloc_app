@@ -2,7 +2,6 @@
 // import 'package:flutter/widgets.dart';
 // import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 
-
 part of 'form_bloc.dart';
 
 class FormScreenState extends Equatable {
@@ -10,7 +9,7 @@ class FormScreenState extends Equatable {
   final BlocFormItem email;
   final BlocFormItem title;
   final BlocFormItem message;
-  // final BlocFormItem dateTime;
+  final BlocFormItem dateTime;
   final GlobalKey<FormState>? formKey;
 
   const FormScreenState({
@@ -18,7 +17,7 @@ class FormScreenState extends Equatable {
     this.email = const BlocFormItem(error: 'Enter email'),
     this.title = const BlocFormItem(error: 'Enter title'),
     this.message = const BlocFormItem(error: 'Enter message'),
-    // this.dateTime = const BlocFormItem(error: 'Enter date time'),
+    this.dateTime = const BlocFormItem(error: 'Enter date time'),
     this.formKey,
   });
 
@@ -27,7 +26,7 @@ class FormScreenState extends Equatable {
     BlocFormItem? email,
     BlocFormItem? title,
     BlocFormItem? message,
-    // BlocFormItem? dateTime,
+    BlocFormItem? dateTime,
     GlobalKey<FormState>? formKey,
   }) {
     return FormScreenState(
@@ -35,13 +34,13 @@ class FormScreenState extends Equatable {
       email: email ?? this.email,
       title: title ?? this.title,
       message: message ?? this.message,
-      // dateTime: dateTime ?? this.dateTime,
+      dateTime: dateTime ?? this.dateTime,
       formKey: formKey,
     );
   }
 
   @override
-  List<Object?> get props => [name, email, title, message, formKey];
+  List<Object?> get props => [name, email, title, message, dateTime, formKey];
   // put dateTime later
   //removed formKey
 }
