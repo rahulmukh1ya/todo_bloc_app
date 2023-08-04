@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 // import 'package:todo_bloc_app/models/task.dart';
 import 'package:todo_bloc_app/screens/tasks_screen.dart';
 import 'blocs/bloc_exports.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // BlocOverrides.runZoned() used here
   runApp(const MyApp());
 }
