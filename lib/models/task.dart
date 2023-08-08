@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable {
+  final String id;
+  final bool isCompleted;
   final String name;
   final String email;
   final String title;
@@ -8,6 +10,8 @@ class Task extends Equatable {
   final DateTime dateTime;
 
   const Task({
+    required this.id,
+    this.isCompleted = false,
     required this.name,
     required this.email,
     required this.title,
@@ -16,6 +20,8 @@ class Task extends Equatable {
   });
 
   Task copyWith({
+    String? id,
+    bool? isCompleted,
     String? name,
     String? email,
     String? title,
@@ -23,6 +29,8 @@ class Task extends Equatable {
     DateTime? dateTime,
   }) {
     return Task(
+      id: id ?? this.id,
+      isCompleted: isCompleted ?? this.isCompleted,
       name: name ?? this.name,
       email: email ?? this.email,
       title: title ?? this.title,
@@ -33,24 +41,28 @@ class Task extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'name' : name,
-      'email' : email,
+      'id': id,
+      'isCompleted': isCompleted,
+      'name': name,
+      'email': email,
       'title': title,
-      'message' : message,
-      'dateTime' : dateTime,
+      'message': message,
+      'dateTime': dateTime,
     };
   }
 
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
-      name: map['name'],
-      email: map['email'],
-      title: map['title'],
-      message: map['message'],
-      dateTime: map['dateTime']
-    );
+        id: map['id'],
+        isCompleted: map['isCompleted'],
+        name: map['name'],
+        email: map['email'],
+        title: map['title'],
+        message: map['message'],
+        dateTime: map['dateTime']);
   }
 
   @override
-  List<Object?> get props => [name, email, title, message, dateTime];
+  List<Object?> get props =>
+      [name, email, title, message, dateTime, id, isCompleted];
 }
