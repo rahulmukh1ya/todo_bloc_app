@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable {
@@ -7,7 +8,7 @@ class Task extends Equatable {
   final String email;
   final String title;
   final String message;
-  final DateTime dateTime;
+  final Timestamp dateTime;
 
   const Task({
     required this.id,
@@ -26,7 +27,7 @@ class Task extends Equatable {
     String? email,
     String? title,
     String? message,
-    DateTime? dateTime,
+    Timestamp? dateTime,
   }) {
     return Task(
       id: id ?? this.id,

@@ -1,11 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:todo_bloc_app/blocs/form_bloc/bloc/form_bloc_event.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
-// import '../blocs/form_bloc/bloc/form_bloc_state.dart';
 import '../models/task.dart';
+import '../services/firestore_service.dart';
 
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({
@@ -125,29 +124,31 @@ class AddTaskScreen extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            print(state.dateTime.value);
 
                             if (state.formKey!.currentState!.validate()) {
                               print('yo this form is valid');
 
                               var task = Task(
+                                id: FirestoreService.setId(),
                                 name: state.name.value,
                                 email: state.email.value,
                                 title: state.title.value,
                                 message: state.message.value,
-                                dateTime: DateTime.parse(state.dateTime.value),
+                                // dateTime: DateTime.parse(state.dateTime.value),
+                                dateTime: Timestamp.fromDate(DateTime.parse(state.dateTime.value)),
+
                               );
                               context.read<TaskBloc>().add(AddTask(task: task));
                             }
                             BlocProvider.of<FormBloc>(context)
                                 .add(const FormSubmitEvent());
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Task added Successfully'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text('Task added Successfully'),
+                            //     backgroundColor: Colors.green,
+                            //   ),
+                            // );
 
                             Navigator.pop(context);
                           },

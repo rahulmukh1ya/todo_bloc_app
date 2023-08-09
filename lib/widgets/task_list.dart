@@ -51,7 +51,7 @@ class TaskList extends StatelessWidget {
               Row(
                 children: [
                   const Text("Date Time: "),
-                  Text(taskList[index].dateTime.toString()),
+                  Text(taskList[index].dateTime.toDate().toString()),
                 ],
               ),
             ],

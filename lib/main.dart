@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TaskBloc(FirestoreService()),
+          create: (context) => TaskBloc(FirestoreService())..add(const LoadTask())
         ),
         BlocProvider(
           create: (context) => FormBloc()..add(const InitEvent()),

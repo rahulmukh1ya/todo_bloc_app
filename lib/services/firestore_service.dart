@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/task.dart';
 
 class FirestoreService {
-  final CollectionReference _taskCollection =
+  static final CollectionReference _taskCollection =
       FirebaseFirestore.instance.collection('tasks');
+      // made the variable static
 
   Stream<List<Task>> getTask() {
     return _taskCollection.snapshots().map((snapshot) {
@@ -13,6 +14,10 @@ class FirestoreService {
       }).toList();
     });
   }
+
+  static String setId() {
+    return _taskCollection.doc().id;
+  } // to provide the unique id for tasks 
 
   Future<void> addTask(Task task) {
     return _taskCollection.add(task.toMap());
