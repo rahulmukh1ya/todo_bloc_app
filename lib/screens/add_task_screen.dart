@@ -126,7 +126,6 @@ class AddTaskScreen extends StatelessWidget {
                           onPressed: () {
 
                             if (state.formKey!.currentState!.validate()) {
-                              print('yo this form is valid');
 
                               var task = Task(
                                 id: FirestoreService.setId(),

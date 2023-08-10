@@ -19,7 +19,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(TaskLoading());
 
     try {
-      final task = await _firestoreService.getTask().first;
+      final List<Task> task = await _firestoreService.getTask().first;
       emit(TaskLoaded(tasks: task));
     } catch (e) {
       emit(TaskError(errorMessage: e.toString()));

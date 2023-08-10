@@ -11,7 +11,7 @@ extension StringExtension on String {
   }
 
   bool get isValidTitle {
-    final titleRegExp = RegExp(r"^[a-zA-Z0-9]*$");
+    final titleRegExp = RegExp(r"^[a-zA-Z0-9~!@#$%^&*()`\[\]{};':,.\/<>?| ]*$");
     return titleRegExp.hasMatch(this);
   }
 
@@ -20,6 +20,4 @@ extension StringExtension on String {
         RegExp(r"^[a-zA-Z0-9~!@#$%^&*()`\[\]{};':,.\/<>?| ]*$");
     return messageRegExp.hasMatch(this);
   }
-
-
 }

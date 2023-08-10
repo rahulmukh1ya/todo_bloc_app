@@ -48,8 +48,10 @@ class TasksScreen extends StatelessWidget {
           );
         } else if (state is TaskOperationSuccess) {
           taskBloc.add(const LoadTask());
+           // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
 
-          return Container();
+          return SizedBox(child: Center(child: Text(state.message)));
         } else if (state is TaskError) {
           // ScaffoldMessenger.of(context)
           //     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
