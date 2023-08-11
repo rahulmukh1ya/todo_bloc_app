@@ -19,7 +19,7 @@ class TaskOperationSuccess extends TaskState {
 class TaskLoaded extends TaskState {
   final List<Task> tasks;
 
-  const TaskLoaded({this.tasks = const <Task>[]});
+  const TaskLoaded({required this.tasks});
 
   @override
   List<Object> get props => [tasks];
