@@ -11,6 +11,7 @@ class FirestoreService {
       print('I am here');
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>; //here
+        print(data);
         return Task.fromMap(data);
       }).toList();
     });

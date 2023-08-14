@@ -18,6 +18,7 @@ class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TaskBloc taskBloc = BlocProvider.of<TaskBloc>(context);
     return BlocBuilder<TaskBloc, TaskState>(
+      
       builder: (context, state) {
         if (state is TaskLoading) {
           return const Center(
@@ -55,8 +56,8 @@ class TasksScreen extends StatelessWidget {
         } else if (state is TaskError) {
           // ScaffoldMessenger.of(context)
           //     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-          return SizedBox(
-            child: Center(
+          return Scaffold(
+            body: Center(
               child: Text(state.errorMessage),
             ),
           );

@@ -100,8 +100,8 @@ class TaskList extends StatelessWidget {
                                       BlocProvider.of<TaskBloc>(context).add(
                                           DeleteTask(
                                               taskId: taskList[index].id));
-                                      BlocProvider.of<TaskBloc>(context).add(
-                                          const LoadTask());
+                                      // BlocProvider.of<TaskBloc>(context).add(
+                                      //     const LoadTask());
                                     }
                                   },
                                   icon: const Icon(Icons.delete)),
