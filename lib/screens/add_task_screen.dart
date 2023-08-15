@@ -4,7 +4,7 @@ import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
-import '../services/firestore_service.dart';
+// import '../services/firestore_service.dart';
 
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({
@@ -128,7 +128,7 @@ class AddTaskScreen extends StatelessWidget {
                             if (state.formKey!.currentState!.validate()) {
 
                               var task = Task(
-                                id: FirestoreService.setId(),
+                                id: DateTime.now().toString(),
                                 name: state.name.value,
                                 email: state.email.value,
                                 title: state.title.value,
