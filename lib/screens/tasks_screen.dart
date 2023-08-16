@@ -19,84 +19,66 @@ class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TaskBloc taskBloc = BlocProvider.of<TaskBloc>(context);
-    return BlocBuilder<TaskBloc, TaskState>(
-      builder: (context, state) {
-        if (state is TaskLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+    return BlocConsumer<TaskBloc, TaskState>(
+      listener: (context, state) {
+        if (state is TaskError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
           );
-        } else if (state is TaskLoaded) {
-          List<Task> taskList = state.tasks;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text("Todo App"),
+          // taskBloc.add(const LoadTask());
+        } else if (state is TaskOperationSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Chip(
-                    label: Text('Tasks'),
-                  ),
+          );
+          taskBloc.add(const LoadTask());
+        }
+      },
+      builder: (context, state) {
+        return BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            if (state is TaskLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is TaskLoaded) {
+              List<Task> taskList = state.tasks;
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text("Todo App"),
                 ),
-                TaskList(taskList: taskList)
-              ],
-            ),
-            floatingActionButton: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  onPressed: () async {
-                    // final data = await FirebaseFirestore.instance
-                    //     .collection('tasks')
-                    //     .snapshots()
-                    //     .map(
-                    //   (snapshot) {
-                    //     snapshot.docs.map(
-                    //       (doc) {
-                    //         Map<String, dynamic> data = doc.data(); //here
-                    //         print(data);
-                    //       },
-                    //     );
-                    //   },
-                    // ).toList();
-                    // print(data);
-                  },
-                  tooltip: 'Fetch Data',
-                  child: const Icon(Icons.cloud_circle),
+                body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Center(
+                      child: Chip(
+                        label: Text('Tasks'),
+                      ),
+                    ),
+                    TaskList(taskList: taskList)
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                FloatingActionButton(
+                floatingActionButton: FloatingActionButton(
                   onPressed: () => addTask(context),
                   tooltip: 'Add Task',
                   child: const Icon(Icons.add),
                 ),
-              ],
-            ),
-          );
-        } else if (state is TaskOperationSuccess) {
-          taskBloc.add(const LoadTask());
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              );
+            } else {
+              taskBloc.add(const LoadTask());
 
-          return SizedBox(child: Center(child: Text(state.message)));
-        } else if (state is TaskError) {
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-          return Scaffold(
-            body: Center(
-              child: Text(state.errorMessage),
-            ),
-          );
-        } else {
-          return const SizedBox(
-            child: Center(
-              child: Text('Something went wrong'),
-            ),
-          );
-        }
+              return const Scaffold(
+                body: Center(
+                  child: Text('Something went wrong'),
+                ),
+              );
+            }
+          },
+        );
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_bloc_app/blocs/form_bloc/models/bloc_form_item.dart';
+import 'package:todo_bloc_app/services/firestore_service.dart';
 import 'package:todo_bloc_app/widgets/custom_form_field.dart';
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
@@ -128,7 +129,7 @@ class AddTaskScreen extends StatelessWidget {
                             if (state.formKey!.currentState!.validate()) {
 
                               var task = Task(
-                                id: DateTime.now().toString(),
+                                id: FirestoreService.setId(),
                                 name: state.name.value,
                                 email: state.email.value,
                                 title: state.title.value,

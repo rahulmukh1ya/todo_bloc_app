@@ -20,19 +20,16 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   Future<void> _onLoadTask(LoadTask event, Emitter<TaskState> emit) async {
     try {
-      emit(TaskLoading());
-
-      // final List<Task> initialTask =
-      //     await _firestoreService.getTask().first.whenComplete(() {
-      //   emit(TaskLoaded(tasks: initialTask));
-      // });
-
       final List<Task> initialTask = await _firestoreService.getTask().first;
       emit(TaskLoaded(tasks: initialTask));
 
-      _firestoreService.getTask().listen((updatedTask) async {
-        emit(TaskLoaded(tasks: updatedTask));
+      await emit.forEach(_firestoreService.getTask(), onData: (updatedTask) {
+        return TaskLoaded(tasks: updatedTask);
       });
+
+      // _firestoreService.getTask().listen((updatedTask) async {
+      //   emit(TaskLoaded(tasks: updatedTask));
+      // });
 
       // print("here i am too");
     } catch (e) {
@@ -44,7 +41,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     try {
       emit(TaskLoading());
       await _firestoreService.addTask(event.task);
-      emit(const TaskOperationSuccess(message: 'Task added Successfully'));
+      // emit(const TaskOperationSuccess(message: 'Task added Successfully'));
     } catch (e) {
       emit(TaskError(errorMessage: e.toString()));
     }
@@ -63,7 +60,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     try {
       emit(TaskLoading());
-      print(event);
       await _firestoreService.deleteTask(event.taskId);
 
       emit(const TaskOperationSuccess(message: 'Task deleted Successfully'));
