@@ -11,6 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // BlocOverrides.runZoned() used here
+  // some changes
   runApp(const MyApp());
 }
 
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TaskBloc(FirestoreService())..add(const LoadTask())
-        ),
+            create: (context) =>
+                TaskBloc(FirestoreService())..add(const LoadTask())),
         BlocProvider(
           create: (context) => FormBloc()..add(const InitEvent()),
         ),
